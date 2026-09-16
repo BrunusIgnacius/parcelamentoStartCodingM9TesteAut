@@ -1,7 +1,21 @@
-import { describe, it } from 'vitest'
+import { describe, it, expect } from 'vitest'
+import { calcularParcelamento } from './parcelamento.ts'
+
 describe('calcularParcelamento', () => {
 describe('sem juros (1x a 4x)', () => {
 it('retorna o valor total em parcela única quando for 1x')
+    //arrange
+    const valorcompra = 1000
+    const nParcelas = 1
+    //act 
+    const result = calcularParcelamento(valorcompra, nParcelas)
+
+    //asse
+    expect(result).toEqual({
+        valorParcela: 1000,
+        totalParcelas: 1
+    })
+
 it('divide o valor sem juros quando for 4x')
 })
 describe('com juros', () => {
