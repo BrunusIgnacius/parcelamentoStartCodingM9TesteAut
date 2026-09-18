@@ -6,9 +6,17 @@ export function calcularParcelamento(
     valorCompra: number,
     numeroParcelas: number
 ): ResultadoParcelamento {
-    if (numeroParcelas >= 1 && numeroParcelas <= 4) {
+
+    if (valorCompra <= 0) {
+        throw new Error('Valor da compra inválido');
+    }
+
+    if (numeroParcelas < 1 || numeroParcelas > 18 || !Number.isInteger(numeroParcelas)) {
+        throw new Error('Número de parcelas inválido');
+    }
+    if (numeroParcelas == 1 || numeroParcelas <= 4) {
         return {
-            valorParcela: valorCompra / numeroParcelas,
+            valorParcela: Number((valorCompra / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         };
     }
@@ -16,7 +24,7 @@ export function calcularParcelamento(
     else if (numeroParcelas >= 5 && numeroParcelas <= 8) {
         const valorComJuros = valorCompra * 1.05;
         return {
-            valorParcela: valorComJuros / numeroParcelas,
+            valorParcela: Number((valorComJuros / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         };
     }
@@ -24,7 +32,15 @@ export function calcularParcelamento(
     else if (numeroParcelas >= 9 && numeroParcelas <= 12) {
         const valorComJuros = valorCompra * 1.08;
         return {
-            valorParcela: valorComJuros / numeroParcelas,
+            valorParcela: Number((valorComJuros / numeroParcelas).toFixed(2)), 
+            totalParcelas: numeroParcelas
+        };
+    }
+
+    else if (numeroParcelas >= 13 && numeroParcelas <= 18) {
+        const valorComJuros = valorCompra * 1.10;
+        return {
+            valorParcela: Number((valorComJuros / numeroParcelas).toFixed(2)),
             totalParcelas: numeroParcelas
         };
     }
